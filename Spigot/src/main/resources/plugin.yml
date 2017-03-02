@@ -1,0 +1,4 @@
+name: ServerService
+author: leNic
+version: ${project.version}
+main: de.lenic.serverservice.spigot.ServerServicePlugin
