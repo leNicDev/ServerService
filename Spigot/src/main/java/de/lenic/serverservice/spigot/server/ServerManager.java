@@ -1,11 +1,6 @@
-/*
- * (C) Copyright 2017 DCR Network (https://dcr.bz/).
- * 
- * All rights reserved to the copyright holder.
- */
 package de.lenic.serverservice.spigot.server;
 
-import de.lenic.serverservice.spigot.server.config.ServerConfig;
+import de.lenic.serverservice.spigot.config.ServerConfig;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -45,7 +40,7 @@ public class ServerManager {
 
 
     /**
-     * Creates an HTTP Server configured using a {@link de.lenic.serverservice.spigot.server.config.ServerConfig}
+     * Creates an HTTP Server configured using a {@link ServerConfig}
      * @return A configured instance of {@link org.eclipse.jetty.server.Server}
      */
     private Server configureServer() {

@@ -19,6 +19,7 @@
         <jettyServerVersion>9.4.2.v20170220</jettyServerVersion>
         <jerseyServerVersion>2.26-b02</jerseyServerVersion>
         <jaxbApiVersion>2.3.0-b170201.1204</jaxbApiVersion>
+        <guiceVersion>4.1.0</guiceVersion>
     </properties>
 
     <dependencies>

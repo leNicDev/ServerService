@@ -1,14 +1,12 @@
-/*
- * (C) Copyright 2017 DCR Network (https://dcr.bz/).
- * 
- * All rights reserved to the copyright holder.
- */
-package de.lenic.serverservice.spigot.server.config;
+package de.lenic.serverservice.spigot.config;
 
 import java.net.InetSocketAddress;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Wrapper class for the server part in the plugin configuration
+ */
 public class ServerConfig {
 
     private InetSocketAddress address;

@@ -3,9 +3,8 @@ server:
   port: 8081
   context-path: '/'
 
-users:
-  example:
-    identifier: example_user
+roles:
+  admin:
     token: QwuzkRH2AWNGdNMdRk3dg5PC
     permissions:
-    - stats.playercount
+    - '*'

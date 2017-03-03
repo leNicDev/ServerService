@@ -1,13 +1,13 @@
-/*
- * (C) Copyright 2017 DCR Network (https://dcr.bz/).
- * 
- * All rights reserved to the copyright holder.
- */
 package de.lenic.serverservice.spigot;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import de.lenic.serverservice.spigot.auth.Role;
 import de.lenic.serverservice.spigot.config.ConfigKey;
+import de.lenic.serverservice.spigot.config.ServerConfig;
+import de.lenic.serverservice.spigot.inject.ServerServiceModule;
 import de.lenic.serverservice.spigot.server.ServerManager;
-import de.lenic.serverservice.spigot.server.config.ServerConfig;
+import de.lenic.serverservice.spigot.services.role.IRoleService;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,18 +17,29 @@ import java.util.Set;
 
 public class ServerServicePlugin extends JavaPlugin {
 
+    private static Injector injector;
+
     private ServerManager serverManager;
 
 
     @Override
     public void onEnable() {
+        // Setup Guice injector
+        injector = Guice.createInjector(new ServerServiceModule());
+
+        // Create default configuration
         saveDefaultConfig();
 
+        // Setup roles
+        setupRoles();
+
+        // Setup and start HTTP server
         setupServerManager();
     }
 
     @Override
     public void onDisable() {
+        // Stop HTTP server if initialized
         if(serverManager != null) {
             try {
                 serverManager.close();
@@ -83,6 +94,32 @@ public class ServerServicePlugin extends JavaPlugin {
         });
 
         return resourceClasses;
+    }
+
+
+    private void setupRoles() {
+        IRoleService roleService = injector.getInstance(IRoleService.class);
+
+        // Load all roles from configuration
+        getConfig().getConfigurationSection("roles").getKeys(false).forEach(name -> {
+            Role role = new Role();
+
+            role.setIdentifier(name);
+            role.setToken(getConfig().getString("roles." + name + ".token"));
+            role.setPermissions(getConfig().getStringList("roles." + name + ".permissions"));
+
+            roleService.addRole(role);
+        });
+
+        getLogger().info("Loaded " + roleService.getRoles().size() + " role(s).");
+    }
+
+
+    /**
+     * @return The {@link com.google.inject.Injector} of the ServerService plugin
+     */
+    public static Injector getInjector() {
+        return injector;
     }
 
 }
