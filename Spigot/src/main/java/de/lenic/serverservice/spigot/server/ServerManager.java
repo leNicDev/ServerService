@@ -1,6 +1,7 @@
 package de.lenic.serverservice.spigot.server;
 
 import de.lenic.serverservice.spigot.config.ServerConfig;
+import org.eclipse.jetty.http.HttpGenerator;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -17,6 +18,9 @@ public class ServerManager {
 
     public ServerManager(ServerConfig config) {
         this.config = config;
+
+        // Manually set server version header to not expose the server's version
+        HttpGenerator.setJettyVersion("Jetty");
     }
 
 
