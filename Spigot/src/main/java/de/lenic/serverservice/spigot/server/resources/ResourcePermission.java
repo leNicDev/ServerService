@@ -9,4 +9,7 @@ public interface ResourcePermission {
     String STATS_PLAYERCOUNT_CURRENT = "stats.playercount.current";
     String STATS_PLAYERCOUNT_MAX = "stats.playercount.max";
 
+    String STATS_MOTD_PLAIN = "stats.motd.plain";
+    String STATS_MOTD_MC = "stats.motd.minecraft";
+
 }
