@@ -78,7 +78,7 @@ tmp/
 local.properties
 .settings/
 .loadpath
-.recommenders
+.enders
 
 # Eclipse Core
 .project
@@ -206,3 +206,4 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+!/Spigot/src/main/java/de/lenic/serverservice/spigot/services/cmd/CommandServiceImpl.java

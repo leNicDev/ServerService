@@ -29,30 +29,23 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Undertow -->
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
-            <version>${jettyServerVersion}</version>
-            <scope>compile</scope>
+            <groupId>io.undertow</groupId>
+            <artifactId>undertow-core</artifactId>
+            <version>${undertowVersion}</version>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-servlet</artifactId>
-            <version>${jettyServerVersion}</version>
-            <scope>compile</scope>
+            <groupId>io.undertow</groupId>
+            <artifactId>undertow-servlet</artifactId>
+            <version>${undertowVersion}</version>
         </dependency>
 
+        <!-- Resteasy -->
         <dependency>
-            <groupId>org.glassfish.jersey.containers</groupId>
-            <artifactId>jersey-container-servlet-core</artifactId>
-            <version>${jerseyServerVersion}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <version>${jerseyServerVersion}</version>
-            <scope>compile</scope>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-undertow</artifactId>
+            <version>${resteasyVersion}</version>
         </dependency>
 
         <!-- Guice -->
@@ -63,11 +56,11 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- Jackson -->
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>${jaxbApiVersion}</version>
-            <scope>compile</scope>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jacksonVersion}</version>
         </dependency>
     </dependencies>
 

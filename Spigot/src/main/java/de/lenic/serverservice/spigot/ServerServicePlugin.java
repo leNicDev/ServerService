@@ -8,22 +8,20 @@ import de.lenic.serverservice.spigot.config.ServerConfig;
 import de.lenic.serverservice.spigot.inject.ServerServiceModule;
 import de.lenic.serverservice.spigot.server.ServerManager;
 import de.lenic.serverservice.spigot.services.role.IRoleService;
-import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class ServerServicePlugin extends JavaPlugin {
 
     private static Injector injector;
+    private static ServerServicePlugin pluginInstance;
 
     private ServerManager serverManager;
 
 
     @Override
     public void onEnable() {
+        pluginInstance = this;
+
         // Setup Guice injector
         injector = Guice.createInjector(new ServerServiceModule());
 
@@ -60,7 +58,6 @@ public class ServerServicePlugin extends JavaPlugin {
                 getConfig().getInt(ConfigKey.SERVER_PORT)
         );
         serverConfig.setContextPath(getConfig().getString(ConfigKey.SERVER_CONTEXT_PATH));
-        serverConfig.setResources(getResourceClasses());
 
         // Initialize ServerManager
         serverManager = new ServerManager(serverConfig);
@@ -73,27 +70,6 @@ public class ServerServicePlugin extends JavaPlugin {
             ex.printStackTrace();
             getLogger().severe("Failed to start HTTP server!");
         }
-    }
-
-    private Set<Class<?>> getResourceClasses() {
-        // Find names of all classes in resource package
-        final List<String> resourceClassNames = new FastClasspathScanner("de.lenic.serverservice.spigot.server.resources")
-                .scan()
-                .getNamesOfAllStandardClasses();
-
-        // Find all resource classes
-        Set<Class<?>> resourceClasses = new HashSet<>();
-
-        resourceClassNames.forEach(className -> {
-            try {
-                Class<?> clazz = Class.forName(className);
-                resourceClasses.add(clazz);
-            } catch (ClassNotFoundException ex) {
-                getLogger().warning("Could not find class " + className + ".");
-            }
-        });
-
-        return resourceClasses;
     }
 
 
@@ -114,6 +90,13 @@ public class ServerServicePlugin extends JavaPlugin {
         getLogger().info("Loaded " + roleService.getRoles().size() + " role(s).");
     }
 
+
+    /**
+     * @return The only instance of the ServerService plugin
+     */
+    public static ServerServicePlugin getInstance() {
+        return pluginInstance;
+    }
 
     /**
      * @return The {@link com.google.inject.Injector} of the ServerService plugin

@@ -1,26 +1,19 @@
 package de.lenic.serverservice.spigot.server;
 
+import de.lenic.serverservice.spigot.ServerServiceApplication;
 import de.lenic.serverservice.spigot.config.ServerConfig;
-import org.eclipse.jetty.http.HttpGenerator;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.glassfish.jersey.jackson.JacksonFeature;
-import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.servlet.ServletContainer;
+import io.undertow.Undertow;
+import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 
 public class ServerManager {
 
     private ServerConfig config;
 
-    private Server server;
+    private UndertowJaxrsServer server;
 
 
     public ServerManager(ServerConfig config) {
         this.config = config;
-
-        // Manually set server version header to not expose the server's version
-        HttpGenerator.setJettyVersion("Jetty");
     }
 
 
@@ -29,8 +22,13 @@ public class ServerManager {
      * @throws Exception Gets thrown when the server fails to startServer
      */
     public void startServer() throws Exception {
-        this.server = configureServer();
-        this.server.start();
+        configureServer();
+        server.start(
+                Undertow.builder().addHttpListener(
+                        config.getAddress().getPort(),
+                        config.getAddress().getHostString()
+                )
+        );
     }
 
     /**
@@ -45,24 +43,10 @@ public class ServerManager {
 
     /**
      * Creates an HTTP Server configured using a {@link ServerConfig}
-     * @return A configured instance of {@link org.eclipse.jetty.server.Server}
      */
-    private Server configureServer() {
-        ResourceConfig resourceConfig = new ResourceConfig(config.getResources());
-        resourceConfig.register(JacksonFeature.class);
-
-        ServletContainer servletContainer = new ServletContainer(resourceConfig);
-        ServletHolder servletHolder = new ServletHolder(servletContainer);
-
-        Server server = new Server(config.getAddress());
-
-        ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        contextHandler.setContextPath(config.getContextPath());
-        contextHandler.addServlet(servletHolder, config.getContextPath() + '*');
-
-        server.setHandler(contextHandler);
-
-        return server;
+    private void configureServer() {
+        server = new UndertowJaxrsServer();
+        server.deploy(new ServerServiceApplication(), config.getContextPath());
     }
 
 }

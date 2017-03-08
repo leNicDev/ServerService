@@ -16,10 +16,10 @@
     <properties>
         <javaVersion>1.8</javaVersion>
         <compilerPluginVersion>3.6.1</compilerPluginVersion>
-        <jettyServerVersion>9.4.2.v20170220</jettyServerVersion>
-        <jerseyServerVersion>2.26-b02</jerseyServerVersion>
-        <jaxbApiVersion>2.3.0-b170201.1204</jaxbApiVersion>
+        <undertowVersion>1.4.11.Final</undertowVersion>
+        <resteasyVersion>3.1.1.Final</resteasyVersion>
         <guiceVersion>4.1.0</guiceVersion>
+        <jacksonVersion>2.9.0.pr1</jacksonVersion>
     </properties>
 
     <dependencies>
