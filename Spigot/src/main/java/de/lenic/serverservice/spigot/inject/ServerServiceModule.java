@@ -2,6 +2,8 @@ package de.lenic.serverservice.spigot.inject;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.AbstractModule;
+import de.lenic.serverservice.spigot.services.cmd.CommandServiceImpl;
+import de.lenic.serverservice.spigot.services.cmd.ICommandService;
 import de.lenic.serverservice.spigot.services.role.IRoleService;
 import de.lenic.serverservice.spigot.services.role.RoleServiceImpl;
 import de.lenic.serverservice.spigot.services.stats.IStatService;
@@ -27,6 +29,8 @@ public class ServerServiceModule extends AbstractModule {
         bind(IRoleService.class).toInstance(new RoleServiceImpl());
 
         bind(IStatService.class).toInstance(new StatServiceImpl());
+
+        bind(ICommandService.class).toInstance(new CommandServiceImpl());
     }
 
     /**

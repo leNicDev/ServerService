@@ -1,4 +1,6 @@
-package de.lenic.serverservice.spigot.server.resources.stats.playercount;
+package de.lenic.serverservice.spigot.server.responses.playercount;
+
+import de.lenic.serverservice.spigot.server.resources.stats.playercount.PlayerCountResource;
 
 /**
  * Response to a current player count request

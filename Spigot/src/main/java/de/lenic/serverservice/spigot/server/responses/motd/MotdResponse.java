@@ -1,4 +1,6 @@
-package de.lenic.serverservice.spigot.server.resources.stats.motd;
+package de.lenic.serverservice.spigot.server.responses.motd;
+
+import de.lenic.serverservice.spigot.server.resources.stats.motd.MotdResource;
 
 /**
  * Response to a motd request

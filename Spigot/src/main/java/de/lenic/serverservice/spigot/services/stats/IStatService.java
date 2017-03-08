@@ -1,8 +1,8 @@
 package de.lenic.serverservice.spigot.services.stats;
 
-import de.lenic.serverservice.spigot.server.resources.stats.motd.MotdResponse;
-import de.lenic.serverservice.spigot.server.resources.stats.playercount.CurrentPlayerCountResponse;
-import de.lenic.serverservice.spigot.server.resources.stats.playercount.MaxPlayerCountResponse;
+import de.lenic.serverservice.spigot.server.responses.motd.MotdResponse;
+import de.lenic.serverservice.spigot.server.responses.playercount.CurrentPlayerCountResponse;
+import de.lenic.serverservice.spigot.server.responses.playercount.MaxPlayerCountResponse;
 
 public interface IStatService {
 

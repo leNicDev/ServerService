@@ -12,4 +12,6 @@ public interface ResourcePermission {
     String STATS_MOTD_PLAIN = "stats.motd.plain";
     String STATS_MOTD_MC = "stats.motd.minecraft";
 
+    String CMD_EXECUTE_CONSOLE = "cmd.execute.console";
+
 }
