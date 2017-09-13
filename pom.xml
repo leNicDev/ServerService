@@ -7,7 +7,7 @@
     <groupId>de.lenic</groupId>
     <artifactId>serverservice</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <modules>
         <module>Spigot</module>
         <module>Bungee</module>
@@ -15,11 +15,11 @@
 
     <properties>
         <javaVersion>1.8</javaVersion>
-        <compilerPluginVersion>3.6.1</compilerPluginVersion>
-        <undertowVersion>1.4.11.Final</undertowVersion>
-        <resteasyVersion>3.1.1.Final</resteasyVersion>
+        <compilerPluginVersion>3.7.0</compilerPluginVersion>
+        <undertowVersion>1.4.20.Final</undertowVersion>
+        <resteasyVersion>3.1.4.Final</resteasyVersion>
         <guiceVersion>4.1.0</guiceVersion>
-        <jacksonVersion>2.9.0.pr1</jacksonVersion>
+        <jacksonVersion>2.9.1</jacksonVersion>
     </properties>
 
     <dependencies>

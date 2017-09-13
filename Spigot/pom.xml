@@ -14,8 +14,8 @@
     <!-- Repositories -->
     <repositories>
         <repository>
-            <id>deincraft</id>
-            <url>http://repo.dcr.bz/content/repositories/deincraft</url>
+            <id>deincraft-repo</id>
+            <url>https://repo.dcr.bz/artifactory/deincraft-repo</url>
         </repository>
     </repositories>
 
@@ -24,8 +24,8 @@
         <!-- Spigot API -->
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <version>1.11-R0.1</version>
+            <artifactId>spigot-api</artifactId>
+            <version>1.12.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
