@@ -7,20 +7,28 @@
     <groupId>de.lenic</groupId>
     <artifactId>serverservice</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>Spigot</module>
-        <module>Bungee</module>
     </modules>
 
     <properties>
         <javaVersion>1.8</javaVersion>
         <compilerPluginVersion>3.7.0</compilerPluginVersion>
-        <undertowVersion>1.4.20.Final</undertowVersion>
-        <resteasyVersion>3.1.4.Final</resteasyVersion>
+        <undertowVersion>1.4.21.Final</undertowVersion>
+        <resteasyVersion>4.0.0.Beta1</resteasyVersion>
         <guiceVersion>4.1.0</guiceVersion>
-        <jacksonVersion>2.9.1</jacksonVersion>
+        <jacksonVersion>2.9.2</jacksonVersion>
     </properties>
+
+    <!-- Repositories -->
+    <repositories>
+        <!-- deinCraft Repository -->
+        <repository>
+            <id>deincraft-repo</id>
+            <url>https://repo.dcr.bz/artifactory/deincraft-repo</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <!-- Fast Classpath Scanner -->
@@ -29,14 +37,6 @@
             <artifactId>fast-classpath-scanner</artifactId>
             <version>LATEST</version>
             <scope>compile</scope>
-        </dependency>
-
-        <!-- JUnit -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
