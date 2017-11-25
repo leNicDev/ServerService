@@ -1,7 +1,7 @@
 # ServerService
 ServerService is a RESTful API that provides information about your Minecraft server.
 
-How is it working?
+How does it work?
 -
 ServerService starts an embedded HTTP server which provides
 various methods to monitor and control your Minecraft server.

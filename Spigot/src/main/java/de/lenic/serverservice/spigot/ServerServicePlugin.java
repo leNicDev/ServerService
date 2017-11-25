@@ -105,4 +105,9 @@ public class ServerServicePlugin extends JavaPlugin {
         return injector;
     }
 
+
+    public ServerManager getServerManager() {
+        return serverManager;
+    }
+
 }
