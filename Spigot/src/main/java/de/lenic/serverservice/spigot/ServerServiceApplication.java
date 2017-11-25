@@ -1,6 +1,7 @@
 package de.lenic.serverservice.spigot;
 
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
+import org.jboss.resteasy.plugins.providers.jackson.ResteasyJackson2Provider;
 
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
@@ -22,6 +23,8 @@ public class ServerServiceApplication extends Application {
 
         // Find all resource classes
         Set<Class<?>> resourceClasses = new HashSet<>();
+
+        resourceClasses.add(ResteasyJackson2Provider.class);
 
         resourceClassNames.forEach(className -> {
             try {
