@@ -2,42 +2,32 @@ package de.lenic.serverservice.spigot.server.resources.filters;
 
 import de.lenic.serverservice.spigot.ServerServicePlugin;
 import de.lenic.serverservice.spigot.auth.Role;
-import de.lenic.serverservice.spigot.config.annotations.PermissionRequired;
+import de.lenic.serverservice.spigot.server.handler.ServerServiceRoute;
 import de.lenic.serverservice.spigot.services.role.IRoleService;
+import org.eclipse.jetty.http.HttpStatus;
+import spark.Filter;
+import spark.Request;
+import spark.Response;
 
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.container.ResourceInfo;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.Provider;
-import java.io.IOException;
-import java.lang.reflect.Method;
+import static spark.Spark.halt;
 
-@Provider
-public class AuthFilter implements ContainerRequestFilter {
-
-    // Pre defined responses
-    private static final Response UNAUTHORIZED = Response.status(Response.Status.UNAUTHORIZED).build();
-
-    @Context
-    private ResourceInfo resourceInfo;
+public class AuthFilter implements Filter {
 
     private IRoleService roleService;
 
 
     public AuthFilter() {
-        roleService = ServerServicePlugin.getInjector().getInstance(IRoleService.class);
+        roleService = ServerServicePlugin.getInstance().getRoleService();
     }
 
 
     @Override
-    public void filter(ContainerRequestContext context) throws IOException {
-        final String token = context.getHeaderString("Authorization");
+    public void handle(Request request, Response response) {
+        final String token = request.headers("Authorization");
 
         // No token provided
         if(token == null) {
-            context.abortWith(UNAUTHORIZED);
+            halt(HttpStatus.UNAUTHORIZED_401);
             return;
         }
 
@@ -45,20 +35,29 @@ public class AuthFilter implements ContainerRequestFilter {
 
         // Invalid token
         if(role == null) {
-            context.abortWith(UNAUTHORIZED);
+            halt(HttpStatus.UNAUTHORIZED_401);
             return;
         }
 
-        final Method targetMethod = resourceInfo.getResourceMethod();
+        // Get route
+        final ServerServiceRoute route = ServerServicePlugin.getInstance().getServerManager()
+                .getRoute(request.pathInfo());
 
-        if(targetMethod.isAnnotationPresent(PermissionRequired.class)) {
-            PermissionRequired permissionAnnotation = targetMethod.getAnnotation(PermissionRequired.class);
+        // Route is not registered
+        if (route == null) {
+            halt(HttpStatus.NOT_FOUND_404);
+            return;
+        }
 
-            // Role has no permission for accessing that resource
-            if(!role.hasPermission(permissionAnnotation.value())) {
-                context.abortWith(UNAUTHORIZED);
-                return;
-            }
+        // Route does not require authentication
+        if (route.getRequiredPermission() == null || route.getRequiredPermission().isEmpty()) {
+            return;
+        }
+
+        // Role has no permission for accessing that resource
+        if(!role.hasPermission(route.getRequiredPermission())) {
+            halt(HttpStatus.UNAUTHORIZED_401);
+            return;
         }
     }
 

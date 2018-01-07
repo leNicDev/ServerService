@@ -1,32 +1,30 @@
 package de.lenic.serverservice.spigot;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import de.lenic.serverservice.spigot.auth.Role;
 import de.lenic.serverservice.spigot.config.ConfigKey;
 import de.lenic.serverservice.spigot.config.ServerConfig;
-import de.lenic.serverservice.spigot.inject.ServerServiceModule;
 import de.lenic.serverservice.spigot.server.ServerManager;
 import de.lenic.serverservice.spigot.services.role.IRoleService;
+import de.lenic.serverservice.spigot.services.role.RoleServiceImpl;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ServerServicePlugin extends JavaPlugin {
 
-    private static Injector injector;
     private static ServerServicePlugin pluginInstance;
 
     private ServerManager serverManager;
+    private IRoleService roleService;
 
 
     @Override
     public void onEnable() {
         pluginInstance = this;
 
-        // Setup Guice injector
-        injector = Guice.createInjector(new ServerServiceModule());
-
         // Create default configuration
         saveDefaultConfig();
+
+        // Setup role service
+        roleService = new RoleServiceImpl();
 
         // Setup roles
         setupRoles();
@@ -57,7 +55,6 @@ public class ServerServicePlugin extends JavaPlugin {
                 getConfig().getString(ConfigKey.SERVER_HOST),
                 getConfig().getInt(ConfigKey.SERVER_PORT)
         );
-        serverConfig.setContextPath(getConfig().getString(ConfigKey.SERVER_CONTEXT_PATH));
 
         // Initialize ServerManager
         serverManager = new ServerManager(serverConfig);
@@ -74,8 +71,6 @@ public class ServerServicePlugin extends JavaPlugin {
 
 
     private void setupRoles() {
-        IRoleService roleService = injector.getInstance(IRoleService.class);
-
         // Load all roles from configuration
         getConfig().getConfigurationSection("roles").getKeys(false).forEach(name -> {
             Role role = new Role();
@@ -98,16 +93,13 @@ public class ServerServicePlugin extends JavaPlugin {
         return pluginInstance;
     }
 
-    /**
-     * @return The {@link com.google.inject.Injector} of the ServerService plugin
-     */
-    public static Injector getInjector() {
-        return injector;
-    }
-
 
     public ServerManager getServerManager() {
         return serverManager;
+    }
+
+    public IRoleService getRoleService() {
+        return roleService;
     }
 
 }
