@@ -7,16 +7,16 @@
     <groupId>de.lenic</groupId>
     <artifactId>serverservice</artifactId>
     <packaging>pom</packaging>
-    <version>2.0.4-SNAPSHOT</version>
+    <version>2.1.0-SNAPSHOT</version>
     <modules>
         <module>Spigot</module>
     </modules>
 
     <properties>
         <javaVersion>1.8</javaVersion>
-        <compilerPluginVersion>3.7.0</compilerPluginVersion>
-        <sparkVersion>2.7.1</sparkVersion>
-        <jacksonVersion>2.9.3</jacksonVersion>
+        <compilerPluginVersion>3.8.0</compilerPluginVersion>
+        <sparkVersion>2.9.0</sparkVersion>
+        <jacksonVersion>2.9.8</jacksonVersion>
     </properties>
 
     <!-- Repositories -->
@@ -24,7 +24,7 @@
         <!-- deinCraft Repository -->
         <repository>
             <id>deincraft-repo</id>
-            <url>https://repo.deincraft.bz/artifactory/deincraft-repo</url>
+            <url>https://maven.dtl.bz/artifactory/public</url>
         </repository>
     </repositories>
 

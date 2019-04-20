@@ -7,7 +7,9 @@ import java.util.Collection;
 public interface IRoleService {
 
     Role getRole(String identifier);
+
     Role getRoleByToken(String token);
+
     Collection<Role> getRoles();
 
     void addRole(Role role);

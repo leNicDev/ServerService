@@ -24,7 +24,7 @@ public class RoleServiceImpl implements IRoleService {
     @Override
     public Role getRoleByToken(String token) {
         for (Role role : roles.values()) {
-            if(role.getToken().equals(token)) {
+            if (role.getToken().equals(token)) {
                 return role;
             }
         }

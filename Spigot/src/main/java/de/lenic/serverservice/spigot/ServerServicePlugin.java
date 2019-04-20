@@ -36,7 +36,7 @@ public class ServerServicePlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         // Stop HTTP server if initialized
-        if(serverManager != null) {
+        if (serverManager != null) {
             try {
                 serverManager.close();
                 getLogger().info("Successfully stopped HTTP server!");

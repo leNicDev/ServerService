@@ -26,7 +26,7 @@ public class AuthFilter implements Filter {
         final String token = request.headers("Authorization");
 
         // No token provided
-        if(token == null) {
+        if (token == null) {
             halt(HttpStatus.UNAUTHORIZED_401);
             return;
         }
@@ -34,7 +34,7 @@ public class AuthFilter implements Filter {
         final Role role = roleService.getRoleByToken(token);
 
         // Invalid token
-        if(role == null) {
+        if (role == null) {
             halt(HttpStatus.UNAUTHORIZED_401);
             return;
         }
@@ -55,7 +55,7 @@ public class AuthFilter implements Filter {
         }
 
         // Role has no permission for accessing that resource
-        if(!role.hasPermission(route.getRequiredPermission())) {
+        if (!role.hasPermission(route.getRequiredPermission())) {
             halt(HttpStatus.UNAUTHORIZED_401);
             return;
         }
