@@ -1,12 +1,13 @@
 package de.lenic.serverservice.spigot.server;
 
 import de.lenic.serverservice.spigot.ServerServiceApplication;
+import de.lenic.serverservice.spigot.ServerServicePlugin;
 import de.lenic.serverservice.spigot.config.ServerConfig;
 import io.undertow.Undertow;
+import jakarta.ws.rs.core.Application;
+import org.jboss.resteasy.core.ResteasyDeploymentImpl;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 import org.jboss.resteasy.spi.ResteasyDeployment;
-
-import javax.ws.rs.core.Application;
 
 public class ServerManager {
 
@@ -61,10 +62,10 @@ public class ServerManager {
      * @return The {@link UndertowJaxrsServer} the deployment has been deployed to
      */
     public UndertowJaxrsServer deployApplication(String contextPath, Application application) {
-        final ResteasyDeployment deployment = new ResteasyDeployment();
+        var deployment = new ResteasyDeploymentImpl();
         deployment.setApplication(application);
-
-        return server.deploy(deployment, buildFullContextPath(contextPath));
+        var undertowDeployment = server.undertowDeployment(deployment, buildFullContextPath(contextPath));
+        return server.deploy(undertowDeployment);
     }
 
 

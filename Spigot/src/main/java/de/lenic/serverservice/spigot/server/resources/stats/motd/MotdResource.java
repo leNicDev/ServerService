@@ -6,10 +6,9 @@ import de.lenic.serverservice.spigot.ServerServicePlugin;
 import de.lenic.serverservice.spigot.config.annotations.PermissionRequired;
 import de.lenic.serverservice.spigot.server.resources.ResourcePermission;
 import de.lenic.serverservice.spigot.services.stats.IStatService;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 
 @Path("/stats/motd")
 public class MotdResource {

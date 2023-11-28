@@ -1,8 +1,8 @@
 package de.lenic.serverservice.spigot.api;
 
+import jakarta.ws.rs.core.Application;
 import org.jboss.resteasy.plugins.providers.jackson.ResteasyJackson2Provider;
 
-import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
 
