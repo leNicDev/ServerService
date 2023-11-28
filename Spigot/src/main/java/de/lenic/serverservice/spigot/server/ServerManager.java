@@ -1,13 +1,11 @@
 package de.lenic.serverservice.spigot.server;
 
 import de.lenic.serverservice.spigot.ServerServiceApplication;
-import de.lenic.serverservice.spigot.ServerServicePlugin;
 import de.lenic.serverservice.spigot.config.ServerConfig;
 import io.undertow.Undertow;
 import jakarta.ws.rs.core.Application;
 import org.jboss.resteasy.core.ResteasyDeploymentImpl;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
-import org.jboss.resteasy.spi.ResteasyDeployment;
 
 public class ServerManager {
 
